@@ -1,0 +1,33 @@
+Tensorflow Speech Recognition Challenge
+https://www.kaggle.com/c/tensorflow-speech-recognition-challenge
+Folders : 
+	images: audio clips -> spectrogram images 
+	im_train: -> images -> resize to 28x28
+	results: results in graphs
+	papers: some useful papers
+	test_pics : ignore (spectrograms of test audio clips)
+Files :
+	complete.py -> code with two CNN models and adversarial training
+	ReadMe -> this
+
+Models:
+Shallow CNN: CNN similar to AlexNet. Two fc layers at the end, dropout enabled/disabled.
+
+Deeper CNN:
+	wide  : added more layers to the CNN, removed dropout
+	wider : increased number of filters
+
+Files:
+	Some files were used for preprocessing on older data
+	but maybe useful for other projects
+	ignore these:
+		CNN_code_for_resized_data.py
+		dataset.py
+		downsizing.py <- recursively resize all images in a folder
+		ds.py <- tried an iterator
+		pp.py <- audio to image conversion. recursively converts all audio clips in a folder to 
+				 corresponding spectrograms
+	complete.py <- main code (USE this)
+For Results and Talks:
+	ML_final.pdf
+	ML_talk.pdf
