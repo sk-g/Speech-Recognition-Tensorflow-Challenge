@@ -1,0 +1,1854 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{GCP-SR}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{time}\PY{o}{,}\PY{n+nn}{sys}\PY{o}{,}\PY{n+nn}{os}\PY{o}{,}\PY{n+nn}{math}\PY{o}{,}\PY{n+nn}{random}\PY{o}{,}\PY{n+nn}{itertools}\PY{o}{,}\PY{n+nn}{glob}\PY{o}{,}\PY{n+nn}{cv2}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{timedelta}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{shuffle}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{timedelta}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,}\PY{n}{ShuffleSplit}
+        \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TF\PYZus{}CPP\PYZus{}MIN\PYZus{}LOG\PYZus{}LEVEL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}Adding Seed so that random initialization is consistent}
+        \PY{k+kn}{from} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{random} \PY{k}{import} \PY{n}{seed}
+        \PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{tensorflow} \PY{k}{import} \PY{n}{set\PYZus{}random\PYZus{}seed}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{python}\PY{n+nn}{.}\PY{n+nn}{framework} \PY{k}{import} \PY{n}{ops}
+        \PY{c+c1}{\PYZsh{}get\PYZus{}ipython().run\PYZus{}line\PYZus{}magic(\PYZsq{}matplotlib\PYZsq{}, \PYZsq{}inline\PYZsq{})}
+        \PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}final\PYZus{}project\PYZus{}path = r\PYZdq{}M:\PYZbs{}Course stuff\PYZbs{}Fall 17\PYZbs{}CMPS 242\PYZbs{}final project\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}os.chdir(final\PYZus{}project\PYZus{}path)}
+        
+        
+        
+        \PY{k}{def} \PY{n+nf}{drawProgressBar}\PY{p}{(}\PY{n}{percent}\PY{p}{,} \PY{n}{barLen} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+        	\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        	\PY{n}{progress} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        	\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{barLen}\PY{p}{)}\PY{p}{:}
+        		\PY{k}{if} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{n+nb}{int}\PY{p}{(}\PY{n}{barLen} \PY{o}{*} \PY{n}{percent}\PY{p}{)}\PY{p}{:}
+        			\PY{n}{progress} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=}\PY{l+s+s2}{\PYZdq{}}
+        		\PY{k}{else}\PY{p}{:}
+        			\PY{n}{progress} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+        	\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[ }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ ] }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{progress}\PY{p}{,} \PY{n}{percent} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+        
+        
+        
+        \PY{n}{imp\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{up}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{down}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{on}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}train}\PY{p}{(}\PY{n}{train\PYZus{}path}\PY{p}{)}\PY{p}{:}
+        	\PY{n}{images} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        	\PY{n}{classes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        	\PY{n}{path} \PY{o}{=} \PY{n}{train\PYZus{}path}
+        	\PY{n}{file\PYZus{}names} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{train\PYZus{}path}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Creating Classes, reading images and breaking things ...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        	\PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{file\PYZus{}names}\PY{p}{:}
+        		\PY{n}{drawProgressBar}\PY{p}{(}\PY{n}{counter}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{file\PYZus{}names}\PY{p}{)}\PY{p}{)}
+        		\PY{c+c1}{\PYZsh{}print(file)}
+        		\PY{n}{classes}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{file}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        		\PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{train\PYZus{}path}\PY{p}{,}\PY{n}{file}\PY{p}{)}\PY{p}{)}
+        		\PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        		\PY{n}{image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{l+m+mf}{255.0}\PY{p}{)} \PY{c+c1}{\PYZsh{}normalizing the pixel intensities}
+        		\PY{n}{images}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        		\PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Done!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        	\PY{n}{images} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{images}\PY{p}{)}
+        	\PY{c+c1}{\PYZsh{}classes now has all the labels. order preserved}
+        	\PY{c+c1}{\PYZsh{}but we need the classes to be floats/ints so lets map the shit out of them}
+        	\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+        		\PY{k}{if} \PY{n}{classes}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{imp\PYZus{}labels}\PY{p}{:}
+        			\PY{n}{classes}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unkown}\PY{l+s+s1}{\PYZsq{}}
+        	\PY{n}{d} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{ni}\PY{p}{:}\PY{n}{indi} \PY{k}{for} \PY{n}{indi}\PY{p}{,} \PY{n}{ni} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+        	\PY{n}{classes} \PY{o}{=} \PY{p}{[}\PY{n}{d}\PY{p}{[}\PY{n}{ni}\PY{p}{]} \PY{k}{for} \PY{n}{ni} \PY{o+ow}{in} \PY{n}{classes}\PY{p}{]}
+        	\PY{n}{classes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{classes}\PY{p}{)}
+        	\PY{n}{n\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}
+        	\PY{n}{classes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{n\PYZus{}values}\PY{p}{)}\PY{p}{[}\PY{n}{classes}\PY{p}{]}
+        	\PY{c+c1}{\PYZsh{}classes = np.eye(n\PYZus{}values)[classes.reshape(\PYZhy{}1)]}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Done!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ images shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, labels shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{classes}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        	\PY{k}{return} \PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{classes}\PY{p}{)}\PY{c+c1}{\PYZsh{}(train\PYZus{}x,train\PYZus{}y,test\PYZus{}x,test\PYZus{}y)}
+        	
+        
+        \PY{k}{def} \PY{n+nf}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+        	\PY{k}{return}\PY{p}{(}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{n}{test\PYZus{}size}\PY{p}{,}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}\PY{p}{,}\PY{n}{shuffle} \PY{o}{=} \PY{n}{shuffle}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{random\PYZus{}mini\PYZus{}batches}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+        
+        	\PY{n}{m} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}                  \PY{c+c1}{\PYZsh{} number of training examples}
+        	\PY{n}{mini\PYZus{}batches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        	\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+        	
+        	\PY{c+c1}{\PYZsh{} Step 1: Shuffle (X, Y)}
+        	\PY{n}{permutation} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{shuffled\PYZus{}X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{permutation}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        	\PY{n}{shuffled\PYZus{}Y} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n}{permutation}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        
+        	\PY{c+c1}{\PYZsh{} Step 2: Partition (shuffled\PYZus{}X, shuffled\PYZus{}Y). Minus the end case.}
+        	\PY{n}{num\PYZus{}complete\PYZus{}minibatches} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{m}\PY{o}{/}\PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{)} \PY{c+c1}{\PYZsh{} number of mini batches of size mini\PYZus{}batch\PYZus{}size in your partitionning}
+        	\PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num\PYZus{}complete\PYZus{}minibatches}\PY{p}{)}\PY{p}{:}
+        		\PY{n}{mini\PYZus{}batch\PYZus{}X} \PY{o}{=} \PY{n}{shuffled\PYZus{}X}\PY{p}{[}\PY{n}{k} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{p}{:} \PY{n}{k} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{o}{+} \PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        		\PY{n}{mini\PYZus{}batch\PYZus{}Y} \PY{o}{=} \PY{n}{shuffled\PYZus{}Y}\PY{p}{[}\PY{n}{k} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{p}{:} \PY{n}{k} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{o}{+} \PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        		\PY{n}{mini\PYZus{}batch} \PY{o}{=} \PY{p}{(}\PY{n}{mini\PYZus{}batch\PYZus{}X}\PY{p}{,} \PY{n}{mini\PYZus{}batch\PYZus{}Y}\PY{p}{)}
+        		\PY{n}{mini\PYZus{}batches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mini\PYZus{}batch}\PY{p}{)}
+        	
+        	\PY{c+c1}{\PYZsh{} Handling the end case (last mini\PYZhy{}batch \PYZlt{} mini\PYZus{}batch\PYZus{}size)}
+        	\PY{k}{if} \PY{n}{m} \PY{o}{\PYZpc{}} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+        		\PY{n}{mini\PYZus{}batch\PYZus{}X} \PY{o}{=} \PY{n}{shuffled\PYZus{}X}\PY{p}{[}\PY{n}{num\PYZus{}complete\PYZus{}minibatches} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{p}{:} \PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        		\PY{n}{mini\PYZus{}batch\PYZus{}Y} \PY{o}{=} \PY{n}{shuffled\PYZus{}Y}\PY{p}{[}\PY{n}{num\PYZus{}complete\PYZus{}minibatches} \PY{o}{*} \PY{n}{mini\PYZus{}batch\PYZus{}size} \PY{p}{:} \PY{n}{m}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+        		\PY{n}{mini\PYZus{}batch} \PY{o}{=} \PY{p}{(}\PY{n}{mini\PYZus{}batch\PYZus{}X}\PY{p}{,} \PY{n}{mini\PYZus{}batch\PYZus{}Y}\PY{p}{)}
+        		\PY{n}{mini\PYZus{}batches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mini\PYZus{}batch}\PY{p}{)}
+        	
+        	\PY{k}{return} \PY{n}{mini\PYZus{}batches}
+        
+        
+        \PY{k}{def} \PY{n+nf}{create\PYZus{}placeholders}\PY{p}{(}\PY{n}{n\PYZus{}H0}\PY{p}{,} \PY{n}{n\PYZus{}W0}\PY{p}{,} \PY{n}{n\PYZus{}C0}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)}\PY{p}{:}
+        
+        	\PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}H0}\PY{p}{,} \PY{n}{n\PYZus{}W0}\PY{p}{,} \PY{n}{n\PYZus{}C0}\PY{p}{]}\PY{p}{,}\PY{n}{dtype} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        	\PY{n}{Y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{]}\PY{p}{,}\PY{n}{dtype} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        
+        	\PY{k}{return} \PY{n}{X}\PY{p}{,} \PY{n}{Y}
+        
+        
+        \PY{k}{def} \PY{n+nf}{initialize\PYZus{}parameters}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        
+        	\PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}                              \PY{c+c1}{\PYZsh{} so that your \PYZdq{}random\PYZdq{} numbers match ours}
+        		
+        
+        	\PY{n}{W1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,} \PY{n}{initializer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{W2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{]}\PY{p}{,} \PY{n}{initializer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{W3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,} \PY{n}{initializer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{W4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{initializer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{W5} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{initializer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{xavier\PYZus{}initializer}\PY{p}{(}\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        
+        	\PY{n}{parameters} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{W1}\PY{p}{,}
+        				  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{W2}\PY{p}{,}
+        				  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{W3}\PY{p}{,}
+        				  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{W4}\PY{p}{,}
+        				  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{W5}\PY{p}{\PYZcb{}}
+        	
+        	\PY{k}{return} \PY{n}{parameters}
+        
+        \PY{k}{def} \PY{n+nf}{forward\PYZus{}propagation}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}\PY{p}{:}
+        
+        	\PY{n}{W1} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        	\PY{n}{W2} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        	\PY{n}{W3} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        	\PY{n}{W4} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        	\PY{n}{W5} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        	\PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/device:GPU:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+        
+        		\PY{n}{Z1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{W1}\PY{p}{,}\PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{A1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{elu}\PY{p}{(}\PY{n}{Z1}\PY{p}{)}		
+        		\PY{n}{P1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{max\PYZus{}pool}\PY{p}{(}\PY{n}{A1}\PY{p}{,}\PY{n}{ksize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		
+        
+        		\PY{n}{Z2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{P1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{A2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{elu}\PY{p}{(}\PY{n}{Z2}\PY{p}{)}\PY{c+c1}{\PYZsh{}relu(Z2)}
+        		\PY{n}{P2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{max\PYZus{}pool}\PY{p}{(}\PY{n}{A2}\PY{p}{,} \PY{n}{ksize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		
+        		\PY{n}{Z3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{P2}\PY{p}{,} \PY{n}{W3}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{A3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{elu}\PY{p}{(}\PY{n}{Z3}\PY{p}{)}
+        		\PY{n}{P3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{max\PYZus{}pool}\PY{p}{(}\PY{n}{A3}\PY{p}{,} \PY{n}{ksize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        		\PY{c+c1}{\PYZsh{}W4}
+        		\PY{n}{Z4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{P3}\PY{p}{,} \PY{n}{W4}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{A4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{elu}\PY{p}{(}\PY{n}{Z4}\PY{p}{)}
+        		\PY{n}{P4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{max\PYZus{}pool}\PY{p}{(}\PY{n}{A4}\PY{p}{,} \PY{n}{ksize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        		\PY{c+c1}{\PYZsh{}W5}
+        		\PY{n}{Z5} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{conv2d}\PY{p}{(}\PY{n}{P4}\PY{p}{,} \PY{n}{W5}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{A5} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{elu}\PY{p}{(}\PY{n}{Z5}\PY{p}{)}
+        		\PY{n}{P5} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{max\PYZus{}pool}\PY{p}{(}\PY{n}{A5}\PY{p}{,} \PY{n}{ksize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{strides} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		
+        		\PY{c+c1}{\PYZsh{} FLATTEN}
+        		\PY{n}{P} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{n}{P5}\PY{p}{)}
+        		\PY{n}{Z6} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{fully\PYZus{}connected}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        		\PY{n}{Z7} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{contrib}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{fully\PYZus{}connected}\PY{p}{(}\PY{n}{Z6}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        
+        	\PY{k}{return} \PY{n}{Z7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}saver = tf.train.Saver()}
+        \PY{k}{def} \PY{n+nf}{model}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.009}\PY{p}{,}
+        		  \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{minibatch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{print\PYZus{}cost}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{large\PYZus{}files} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{VAT} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+        
+        	\PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+        	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Batch Size : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Epochs: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Learning Rate: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{VAT: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Large\PYZus{}Files: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{minibatch\PYZus{}size}\PY{p}{,}\PY{n}{num\PYZus{}epochs}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{VAT}\PY{p}{,}\PY{n}{large\PYZus{}files}\PY{p}{)}\PY{p}{)}
+        	\PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elu activations lr }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ mbs }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{minibatch\PYZus{}size}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ e }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}epochs}\PY{p}{)}
+        	\PY{k}{if} \PY{n}{large\PYZus{}files}\PY{p}{:}
+        		\PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{large images}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+        	\PY{k}{if} \PY{n}{VAT}\PY{p}{:}
+        		\PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VAT }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+        	\PY{n}{ops}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}                         \PY{c+c1}{\PYZsh{} to be able to rerun the model without overwriting tf variables}
+        	\PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}                             \PY{c+c1}{\PYZsh{} to keep results consistent (tensorflow seed)}
+        	\PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{3}                                          \PY{c+c1}{\PYZsh{} to keep results consistent (numpy seed)}
+        	\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{n\PYZus{}H0}\PY{p}{,} \PY{n}{n\PYZus{}W0}\PY{p}{,} \PY{n}{n\PYZus{}C0}\PY{p}{)} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}             
+        	\PY{n}{n\PYZus{}y} \PY{o}{=} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}                            
+        	\PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}                                        \PY{c+c1}{\PYZsh{} To keep track of the cost}
+        	
+        	\PY{c+c1}{\PYZsh{} Create Placeholders of the correct shape}
+        	\PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{create\PYZus{}placeholders}\PY{p}{(}\PY{n}{n\PYZus{}H0}\PY{p}{,} \PY{n}{n\PYZus{}W0}\PY{p}{,} \PY{n}{n\PYZus{}C0}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)}
+        
+        	\PY{c+c1}{\PYZsh{} Initialize parameters}
+        	\PY{n}{parameters} \PY{o}{=} \PY{n}{initialize\PYZus{}parameters}\PY{p}{(}\PY{p}{)}
+        	
+        	\PY{c+c1}{\PYZsh{} Forward propagation: Build the forward propagation in the tensorflow graph}
+        	\PY{n}{Z7} \PY{o}{=} \PY{n}{forward\PYZus{}propagation}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+        	
+        	\PY{c+c1}{\PYZsh{} Cost function: Add cost function to tensorflow graph}
+        	\PY{c+c1}{\PYZsh{}cost = compute\PYZus{}cost(Z3, Y)}
+        	\PY{n}{cost} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{logits} \PY{o}{=} \PY{n}{Z7}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{Y}\PY{p}{)}\PY{p}{)}
+        	\PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{name\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Optimizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+        	\PY{c+c1}{\PYZsh{} Backpropagation: Define the tensorflow optimizer. Use an AdamOptimizer that minimizes the cost.}
+        		\PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{AdamOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+        	
+        	\PY{c+c1}{\PYZsh{}saver = tf.train.Saver()}
+        	\PY{c+c1}{\PYZsh{}summary\PYZus{}op = tf.summary.merge\PYZus{}all()}
+        	\PY{n}{config} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{ConfigProto}\PY{p}{(}\PY{n}{allow\PYZus{}soft\PYZus{}placement} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{log\PYZus{}device\PYZus{}placement} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+        	\PY{n}{config}\PY{o}{.}\PY{n}{gpu\PYZus{}options}\PY{o}{.}\PY{n}{allow\PYZus{}growth} \PY{o}{=} \PY{k+kc}{True}
+        	\PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{config} \PY{o}{=} \PY{n}{config}\PY{p}{)}
+        	\PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+        	\PY{n}{merged} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{p}{[}\PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{scalar}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cross\PYZus{}entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cost}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        	\PY{c+c1}{\PYZsh{}writer = tf.summary.FileWriter(os.path.join(os.getcwd(),\PYZdq{}logs\PYZdq{}), graph=sess.graph)}
+        	\PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        		\PY{c+c1}{\PYZsh{}saver.restore(sess,str(title)+\PYZdq{}.ckpt\PYZdq{})}
+        		\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+        		\PY{c+c1}{\PYZsh{} Do the training loop}
+        		
+        		\PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epochs}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        			\PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        			\PY{n}{minibatch\PYZus{}cost} \PY{o}{=} \PY{l+m+mf}{0.}
+        			\PY{n}{num\PYZus{}minibatches} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{m} \PY{o}{/} \PY{n}{minibatch\PYZus{}size}\PY{p}{)} \PY{c+c1}{\PYZsh{} number of minibatches of size minibatch\PYZus{}size in the train set}
+        			\PY{n}{batch\PYZus{}count} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{m}\PY{o}{/}\PY{n}{minibatch\PYZus{}size}\PY{p}{)}
+        			\PY{n}{seed} \PY{o}{=} \PY{n}{seed} \PY{o}{+} \PY{l+m+mi}{1}
+        			\PY{n}{minibatches} \PY{o}{=} \PY{n}{random\PYZus{}mini\PYZus{}batches}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{minibatch\PYZus{}size}\PY{p}{,} \PY{n}{seed}\PY{p}{)}
+        			\PY{c+c1}{\PYZsh{}c = 0}
+        			\PY{k}{for} \PY{n}{minibatch} \PY{o+ow}{in} \PY{n}{minibatches}\PY{p}{:}
+        				\PY{p}{(}\PY{n}{minibatch\PYZus{}X}\PY{p}{,} \PY{n}{minibatch\PYZus{}Y}\PY{p}{)} \PY{o}{=} \PY{n}{minibatch}
+        				\PY{n}{\PYZus{}} \PY{p}{,} \PY{n}{temp\PYZus{}cost}\PY{p}{,}\PY{n}{summary}\PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{optimizer}\PY{p}{,} \PY{n}{cost}\PY{p}{,}\PY{n}{merged}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:}\PY{n}{minibatch\PYZus{}X}\PY{p}{,} \PY{n}{Y}\PY{p}{:}\PY{n}{minibatch\PYZus{}Y}\PY{p}{\PYZcb{}}\PY{p}{)}
+        				
+        				\PY{c+c1}{\PYZsh{}c += 1}
+        				\PY{n}{minibatch\PYZus{}cost} \PY{o}{+}\PY{o}{=} \PY{n}{temp\PYZus{}cost} \PY{o}{/} \PY{n}{num\PYZus{}minibatches}
+        			\PY{c+c1}{\PYZsh{}print(type(summary))}
+        			\PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        			\PY{k}{if} \PY{n}{minibatch\PYZus{}cost} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.36}\PY{p}{:}
+        				\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ == end of training at epoch: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ with cost: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ ==}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{minibatch\PYZus{}cost}\PY{p}{)}\PY{p}{)}
+        				\PY{k}{break}\PY{p}{;}
+        			\PY{c+c1}{\PYZsh{}writer.add\PYZus{}summary(summary, epoch)}
+        			\PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o}{==} \PY{k+kc}{False}\PY{p}{:}
+        				\PY{n}{drawProgressBar}\PY{p}{(}\PY{n}{epoch}\PY{o}{/}\PY{n}{num\PYZus{}epochs}\PY{p}{,}\PY{n}{barLen} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+        			\PY{c+c1}{\PYZsh{} Print the cost every epoch}
+        			\PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:} 
+        				\PY{k}{if} \PY{n}{num\PYZus{}epochs}\PY{o}{\PYZlt{}}\PY{l+m+mi}{100} \PY{o+ow}{and} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        					\PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost after epoch }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{minibatch\PYZus{}cost}\PY{p}{)}\PY{p}{)}
+        				\PY{k}{elif} \PY{n}{num\PYZus{}epochs}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1000}\PY{p}{:}
+        					\PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{10} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        					\PY{c+c1}{\PYZsh{}end = time.time()}
+        						\PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost after epoch }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{minibatch\PYZus{}cost}\PY{p}{)}\PY{p}{)}
+        				\PY{k}{elif} \PY{n}{num\PYZus{}epochs} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{:}
+        					\PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        						\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost after epoch }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{minibatch\PYZus{}cost}\PY{p}{)}\PY{p}{)}
+        			\PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o}{==} \PY{k+kc}{True} \PY{o+ow}{and} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{1} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        				\PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{minibatch\PYZus{}cost}\PY{p}{)}
+        		
+        		\PY{c+c1}{\PYZsh{}with open(str(title)+\PYZdq{}.txt\PYZdq{},\PYZdq{}w\PYZdq{}) as f:}
+        			\PY{c+c1}{\PYZsh{}for i in range(len(costs)):}
+        				\PY{c+c1}{\PYZsh{}f.write(str(costs[i]))}
+        				\PY{c+c1}{\PYZsh{}f.write(\PYZdq{}\PYZbs{}n\PYZdq{})}
+        		\PY{c+c1}{\PYZsh{} plot the cost}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{costs}\PY{p}{)}\PY{p}{)}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iterations (per tens)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{title}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}\PYZdq{}Learning rate =\PYZdq{} + str(learning\PYZus{}rate))}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{p}{(}\PY{n}{title}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        		\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        		\PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/device:GPU:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+        			\PY{c+c1}{\PYZsh{} Calculate the correct predictions}
+        			\PY{n}{predict\PYZus{}op} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Z7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        			\PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{predict\PYZus{}op}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        			\PY{c+c1}{\PYZsh{} Calculate accuracy on the test set}
+        			\PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        			\PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}
+        			\PY{n}{train\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y}\PY{p}{:} \PY{n}{Y\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+        			\PY{n}{test\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y}\PY{p}{:} \PY{n}{Y\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+        		\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}accuracy}\PY{p}{)}
+        		\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}accuracy}\PY{p}{)}
+        		\PY{c+c1}{\PYZsh{}saver.save(sess,str(title)+\PYZdq{}.ckpt\PYZdq{})}
+        		\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saved Model at : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.ckpt}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{title}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        		\PY{k}{return} \PY{n}{train\PYZus{}accuracy}\PY{p}{,} \PY{n}{test\PYZus{}accuracy}\PY{p}{,} \PY{n}{parameters}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=====================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training without VAT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=====================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{images}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{load\PYZus{}train}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{im\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}print(\PYZdq{}train\PYZus{}x3: \PYZob{}\PYZcb{}\PYZbs{}ntrain\PYZus{}y3: \PYZob{}\PYZcb{}\PYZbs{}ntest\PYZus{}x.shape: \PYZob{}\PYZcb{}\PYZbs{}ntest\PYZus{}y.shape: \PYZob{}\PYZcb{}\PYZdq{}.format(train\PYZus{}x3.shape,train\PYZus{}y3.shape,test\PYZus{}x.shape,test\PYZus{}y.shape))}
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params\PYZus{}vat\PYZus{}large} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{VAT} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{large\PYZus{}files} \PY{o}{=} \PY{k+kc}{False}
+                                      \PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+        \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+        	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+        	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+        \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+        
+        \PY{n}{images}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{load\PYZus{}train}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{im\PYZus{}train\PYZus{}large}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(\PYZdq{}train\PYZus{}x3: \PYZob{}\PYZcb{}\PYZbs{}ntrain\PYZus{}y3: \PYZob{}\PYZcb{}\PYZbs{}ntest\PYZus{}x.shape: \PYZob{}\PYZcb{}\PYZbs{}ntest\PYZus{}y.shape: \PYZob{}\PYZcb{}\PYZdq{}.format(train\PYZus{}x3.shape,train\PYZus{}y3.shape,test\PYZus{}x.shape,test\PYZus{}y.shape))}
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params\PYZus{}vat\PYZus{}large} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{VAT} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{large\PYZus{}files} \PY{o}{=} \PY{k+kc}{True}
+                                      \PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+        \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+        	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+        	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+        \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total time taken = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ hours, }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ minutes and }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{ seconds}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{hrs}\PY{p}{,}\PY{n}{mins}\PY{p}{,} \PY{n}{secs}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=====================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Beginning VAT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=====================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{images}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{load\PYZus{}train}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{im\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{train\PYZus{}x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{p}{)}
+        \PY{n}{train\PYZus{}y2} \PY{o}{=} \PY{n}{train\PYZus{}y}
+        \PY{n}{train\PYZus{}y3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{train\PYZus{}y2}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{train\PYZus{}x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}x2}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{train\PYZus{}y3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}x.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}y.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params\PYZus{}vat\PYZus{}large} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{VAT} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{large\PYZus{}files} \PY{o}{=} \PY{k+kc}{False}
+                                      \PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+        \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+        	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+        	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+        \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{vat large files}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{images}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{load\PYZus{}train}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{im\PYZus{}train\PYZus{}large}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{train\PYZus{}x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                          \PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{p}{)}
+        \PY{n}{train\PYZus{}y2} \PY{o}{=} \PY{n}{train\PYZus{}y}
+        \PY{n}{train\PYZus{}y3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{train\PYZus{}y2}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{train\PYZus{}x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}x2}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{train\PYZus{}y3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}x.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}y.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params\PYZus{}vat\PYZus{}large} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{VAT} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{large\PYZus{}files} \PY{o}{=} \PY{k+kc}{True}
+                                      \PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+        \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+        	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+        	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+        \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total time taken = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ hours, }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ minutes and }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{ seconds}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{hrs}\PY{p}{,}\PY{n}{mins}\PY{p}{,} \PY{n}{secs}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=====================
+Training without VAT
+=====================
+Creating Classes, reading images and breaking things {\ldots}
+
+[ ================================================== ] 100.00\%
+Done!
+
+Done!
+
+ images shape: (64727, 28, 28, 3), labels shape: (64727, 12)
+(51781, 28, 28, 3) (12946, 28, 28, 3) (51781, 12) (12946, 12)
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001
+VAT: False
+Large\_Files: False 
+Cost after epoch 0:2.301846129894256
+Cost after epoch 50:0.9748922967910766
+Cost after epoch 100:0.8052560436725616
+Cost after epoch 150:0.7367692494392396
+Cost after epoch 200:0.625106656551361
+Cost after epoch 250:0.579379861354828
+Cost after epoch 300:0.5580554664134979
+Cost after epoch 350:0.535738506913185
+Cost after epoch 400:0.5209647744894028
+Cost after epoch 450:0.5062491995096208
+Cost after epoch 500:0.4963218581676484
+Cost after epoch 550:0.48585680365562434
+Cost after epoch 600:0.4789100354909896
+Cost after epoch 650:0.47274056851863866
+Cost after epoch 700:0.4682585716247558
+Cost after epoch 750:0.46828377068042754
+Cost after epoch 800:0.46898231625556963
+Cost after epoch 850:0.4574151015281678
+Cost after epoch 900:0.45531943321228036
+Cost after epoch 950:0.45036047577857974
+Cost after epoch 1000:0.4470601963996887
+Cost after epoch 1050:0.4490649497509003
+Cost after epoch 1100:0.4458883184194564
+Cost after epoch 1150:0.44173854947090135
+Cost after epoch 1200:0.44562365233898166
+Cost after epoch 1250:0.4393035316467285
+Cost after epoch 1300:0.4406149768829346
+Cost after epoch 1350:0.4369736832380295
+Cost after epoch 1400:0.43657583534717564
+Cost after epoch 1450:0.4334884989261627
+Cost after epoch 1500:0.4309258526563644
+Cost after epoch 1550:0.428785409927368
+Cost after epoch 1600:0.42908922553062434
+Cost after epoch 1650:0.42648260831832896
+Cost after epoch 1700:0.4269704228639602
+Cost after epoch 1750:0.42337500512599946
+Cost after epoch 1800:0.4257712101936339
+Cost after epoch 1850:0.42042487859725963
+Cost after epoch 1900:0.42041450321674356
+Cost after epoch 1950:0.4235493779182434
+Cost after epoch 2000:0.42407526791095734
+Cost after epoch 2050:0.4185821962356567
+Cost after epoch 2100:0.4249705368280411
+Cost after epoch 2150:0.4196424317359924
+Cost after epoch 2200:0.4181022375822067
+Cost after epoch 2250:0.4182740592956544
+Cost after epoch 2300:0.4164236932992936
+Cost after epoch 2350:0.415743796825409
+Cost after epoch 2400:0.4115271520614623
+Cost after epoch 2450:0.41823855578899366
+Cost after epoch 2500:0.4134957587718963
+Cost after epoch 2550:0.40982783019542696
+Cost after epoch 2600:0.40986220479011537
+Cost after epoch 2650:0.40793071687221527
+Cost after epoch 2700:0.4106741249561309
+Cost after epoch 2750:0.4093060874938965
+Cost after epoch 2800:0.40613012790679925
+Cost after epoch 2850:0.4131707406044005
+Cost after epoch 2900:0.4102520716190339
+Cost after epoch 2950:0.40763982534408566
+Cost after epoch 3000:0.40906260251998894
+Cost after epoch 3050:0.4057561022043226
+Cost after epoch 3100:0.4016703397035598
+Cost after epoch 3150:0.40549126565456406
+Cost after epoch 3200:0.4083183825016021
+Cost after epoch 3250:0.4012800717353822
+Cost after epoch 3300:0.40613354861736306
+Cost after epoch 3350:0.4003195273876191
+Cost after epoch 3400:0.4006722402572632
+Cost after epoch 3450:0.40324618995189665
+Cost after epoch 3500:0.4002516025304794
+Cost after epoch 3550:0.3998131948709489
+Cost after epoch 3600:0.40020089626312255
+Cost after epoch 3650:0.40015293776988975
+Cost after epoch 3700:0.39773369550704946
+Cost after epoch 3750:0.3985496234893798
+Cost after epoch 3800:0.39698707878589645
+Cost after epoch 3850:0.39714928090572355
+Cost after epoch 3900:0.39862234234809885
+Cost after epoch 3950:0.39745298504829407
+Cost after epoch 4000:0.3948144483566284
+Cost after epoch 4050:0.39812348425388316
+Cost after epoch 4100:0.3951520544290542
+Cost after epoch 4150:0.394593647122383
+Cost after epoch 4200:0.39710810065269464
+Cost after epoch 4250:0.3965498495101928
+Cost after epoch 4300:0.3930836099386216
+Cost after epoch 4350:0.3922786384820938
+Cost after epoch 4400:0.3938040393590927
+Cost after epoch 4450:0.3946526020765303
+Cost after epoch 4500:0.39383527219295505
+Cost after epoch 4550:0.3953688085079192
+Cost after epoch 4600:0.3923367607593536
+Cost after epoch 4650:0.39787890434265144
+Cost after epoch 4700:0.3882081145048142
+Cost after epoch 4750:0.39171828269958503
+Cost after epoch 4800:0.3885872763395309
+Cost after epoch 4850:0.3923960238695145
+Cost after epoch 4900:0.3895100706815718
+Cost after epoch 4950:0.38828426063060756
+Cost after epoch 5000:0.38977077364921575
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.877098
+Test Accuracy: 0.86575
+Saved Model at : elu activations lr 0.001 mbs 1024 e 5000.ckpt
+Creating Classes, reading images and breaking things {\ldots}
+
+[ ================================================== ] 100.00\%
+Done!
+
+Done!
+
+ images shape: (64727, 28, 28, 3), labels shape: (64727, 12)
+(51781, 28, 28, 3) (12946, 28, 28, 3) (51781, 12) (12946, 12)
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001
+VAT: False
+Large\_Files: True 
+Cost after epoch 0:2.3018461275100703
+Cost after epoch 50:0.9740914690494539
+Cost after epoch 100:0.805042268037796
+Cost after epoch 150:0.7365570783615114
+Cost after epoch 200:0.6244137036800385
+Cost after epoch 250:0.5750450253486632
+Cost after epoch 300:0.5533583784103393
+Cost after epoch 350:0.5304897981882094
+Cost after epoch 400:0.5153659802675247
+Cost after epoch 450:0.5014945060014725
+Cost after epoch 500:0.49238498926162727
+Cost after epoch 550:0.4822921866178513
+Cost after epoch 600:0.4761145114898683
+Cost after epoch 650:0.47033734679222106
+Cost after epoch 700:0.4668655949831009
+Cost after epoch 750:0.46676043033599857
+Cost after epoch 800:0.4659810030460357
+Cost after epoch 850:0.45559414505958545
+Cost after epoch 900:0.45371692359447485
+Cost after epoch 950:0.45006166160106653
+Cost after epoch 1000:0.44694679975509644
+Cost after epoch 1050:0.4481680786609649
+Cost after epoch 1100:0.44513563275337215
+Cost after epoch 1150:0.44099114716053006
+Cost after epoch 1200:0.44361104726791367
+Cost after epoch 1250:0.43786072611808785
+Cost after epoch 1300:0.4394246631860732
+Cost after epoch 1350:0.4358276528120041
+Cost after epoch 1400:0.4341731888055802
+Cost after epoch 1450:0.43302676022052766
+Cost after epoch 1500:0.4305608999729155
+Cost after epoch 1550:0.42895447909831996
+Cost after epoch 1600:0.42996555089950567
+Cost after epoch 1650:0.42738989651203163
+Cost after epoch 1700:0.426482400894165
+Cost after epoch 1750:0.42373084127902977
+Cost after epoch 1800:0.425629306435585
+Cost after epoch 1850:0.42088769555091843
+Cost after epoch 1900:0.420330485701561
+Cost after epoch 1950:0.4230189627408981
+Cost after epoch 2000:0.4232350623607636
+Cost after epoch 2050:0.4186612588167191
+Cost after epoch 2100:0.4233739346265793
+Cost after epoch 2150:0.4184853464365006
+Cost after epoch 2200:0.41731911420822143
+Cost after epoch 2250:0.41692342042922975
+Cost after epoch 2300:0.4154388540983202
+Cost after epoch 2350:0.41480356335639973
+Cost after epoch 2400:0.41102704048156746
+Cost after epoch 2450:0.4172941118478775
+Cost after epoch 2500:0.41325111210346227
+Cost after epoch 2550:0.410364429950714
+Cost after epoch 2600:0.4088292962312699
+Cost after epoch 2650:0.4071749347448349
+Cost after epoch 2700:0.4098604041337968
+Cost after epoch 2750:0.40906790256500236
+Cost after epoch 2800:0.4058103996515273
+Cost after epoch 2850:0.40955744385719295
+Cost after epoch 2900:0.410397926568985
+Cost after epoch 2950:0.4059617638587953
+Cost after epoch 3000:0.40662324309349046
+Cost after epoch 3050:0.4043386048078537
+Cost after epoch 3100:0.40164248526096347
+Cost after epoch 3150:0.4045771878957748
+Cost after epoch 3200:0.4072287267446518
+Cost after epoch 3250:0.40130393743515036
+Cost after epoch 3300:0.4067273694276809
+Cost after epoch 3350:0.4005414307117462
+Cost after epoch 3400:0.4008228093385696
+Cost after epoch 3450:0.4020099419355392
+Cost after epoch 3500:0.3999191898107529
+Cost after epoch 3550:0.4004750561714172
+Cost after epoch 3600:0.40084154427051544
+Cost after epoch 3650:0.402387502193451
+Cost after epoch 3700:0.39841936647892007
+Cost after epoch 3750:0.3988722050189971
+Cost after epoch 3800:0.3993190169334412
+Cost after epoch 3850:0.39744786083698286
+Cost after epoch 3900:0.39951611697673794
+Cost after epoch 3950:0.3980606216192246
+Cost after epoch 4000:0.3968936842679977
+Cost after epoch 4050:0.39848940193653115
+Cost after epoch 4100:0.3968986481428145
+Cost after epoch 4150:0.3963454759120941
+Cost after epoch 4200:0.399663987159729
+Cost after epoch 4250:0.39897878766059874
+Cost after epoch 4300:0.3951163506507875
+Cost after epoch 4350:0.39486600041389475
+Cost after epoch 4400:0.39808669209480274
+Cost after epoch 4450:0.394076976776123
+Cost after epoch 4500:0.39684869945049284
+Cost after epoch 4550:0.3971363854408263
+Cost after epoch 4600:0.3954790073633194
+Cost after epoch 4650:0.39752203464508057
+Cost after epoch 4700:0.39186489641666417
+Cost after epoch 4750:0.3923180282115937
+Cost after epoch 4800:0.39352940976619716
+Cost after epoch 4850:0.39411123752593985
+Cost after epoch 4900:0.3923121643066406
+Cost after epoch 4950:0.3903877902030945
+Cost after epoch 5000:0.39376635968685153
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.878353
+Test Accuracy: 0.867295
+Saved Model at : large imageselu activations lr 0.001 mbs 1024 e 5000.ckpt
+Total time taken = 0 hours, 50 minutes and 35.9484 seconds
+=====================
+Beginning VAT
+=====================
+Creating Classes, reading images and breaking things {\ldots}
+
+[ ================================================== ] 100.00\%
+Done!
+
+Done!
+
+ images shape: (64727, 28, 28, 3), labels shape: (64727, 12)
+(51781, 28, 28, 3) (12946, 28, 28, 3) (51781, 12) (12946, 12)
+train\_x3: (103562, 28, 28, 3)
+train\_y3: (103562, 12)
+test\_x.shape: (12946, 28, 28, 3)
+test\_y.shape: (12946, 12)
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001
+VAT: True
+Large\_Files: False 
+Cost after epoch 0:1.9863636481879956
+Cost after epoch 50:0.7743765640966962
+Cost after epoch 100:0.6042243903226191
+Cost after epoch 150:0.5314740553350731
+Cost after epoch 200:0.4990882947303282
+Cost after epoch 250:0.4816551869458492
+Cost after epoch 300:0.4708080687145196
+Cost after epoch 350:0.4596988552867776
+Cost after epoch 400:0.4553897277553484
+Cost after epoch 450:0.4482005542457695
+Cost after epoch 500:0.44303889764417514
+Cost after epoch 550:0.4374221834805932
+Cost after epoch 600:0.43559571540001607
+Cost after epoch 650:0.43307782193221667
+Cost after epoch 700:0.42933352188308654
+Cost after epoch 750:0.43056518223026014
+Cost after epoch 800:0.4243556231555372
+Cost after epoch 850:0.42383685708045965
+Cost after epoch 900:0.429523338480751
+Cost after epoch 950:0.42435584800078124
+Cost after epoch 1000:0.41956771334799203
+Cost after epoch 1050:0.41684472472360823
+Cost after epoch 1100:0.4175070600934549
+Cost after epoch 1150:0.41214263970308945
+Cost after epoch 1200:0.4154030899010082
+Cost after epoch 1250:0.41213483798621936
+Cost after epoch 1300:0.4083238786990099
+Cost after epoch 1350:0.4098491379530123
+Cost after epoch 1400:0.40657031063986304
+Cost after epoch 1450:0.4059017067498499
+Cost after epoch 1500:0.4065520733889966
+Cost after epoch 1550:0.4061740896489361
+Cost after epoch 1600:0.40661560810438474
+Cost after epoch 1650:0.40289992035025407
+Cost after epoch 1700:0.40143270982374046
+Cost after epoch 1750:0.4020991738479916
+Cost after epoch 1800:0.4017778322248176
+Cost after epoch 1850:0.3988019101100391
+Cost after epoch 1900:0.39897095183334746
+Cost after epoch 1950:0.3983919638218265
+Cost after epoch 2000:0.39889450799120535
+Cost after epoch 2050:0.39659206642962924
+Cost after epoch 2100:0.40157567628539453
+Cost after epoch 2150:0.39883961919510724
+Cost after epoch 2200:0.39767332035716224
+Cost after epoch 2250:0.3958984698989603
+Cost after epoch 2300:0.3962189015185479
+Cost after epoch 2350:0.39320612130778854
+Cost after epoch 2400:0.3926855715194552
+Cost after epoch 2450:0.3926625709132394
+Cost after epoch 2500:0.3921788311240696
+Cost after epoch 2550:0.39203541939801495
+Cost after epoch 2600:0.3944941862384872
+Cost after epoch 2650:0.392931277799134
+Cost after epoch 2700:0.3934823658206675
+Cost after epoch 2750:0.3908986708905437
+Cost after epoch 2800:0.3911950709206044
+Cost after epoch 2850:0.39475105511079905
+Cost after epoch 2900:0.39135416014359736
+Cost after epoch 2950:0.39061896576739796
+Cost after epoch 3000:0.3901975376181084
+Cost after epoch 3050:0.38997258437742083
+Cost after epoch 3100:0.39022557835767774
+Cost after epoch 3150:0.3907653116943813
+Cost after epoch 3200:0.39058733871667695
+Cost after epoch 3250:0.39137356499634196
+Cost after epoch 3300:0.3874336392572611
+Cost after epoch 3350:0.38782413554663675
+Cost after epoch 3400:0.3862891973245263
+Cost after epoch 3450:0.3857378469835415
+Cost after epoch 3500:0.38906942175166437
+Cost after epoch 3550:0.38558001358910393
+Cost after epoch 3600:0.3874575135731462
+Cost after epoch 3650:0.38595532957870193
+Cost after epoch 3700:0.38596622572086814
+Cost after epoch 3750:0.38492031970826734
+Cost after epoch 3800:0.3844660936605813
+Cost after epoch 3850:0.3859408698459663
+Cost after epoch 3900:0.3837019686061558
+Cost after epoch 3950:0.3845447591035671
+Cost after epoch 4000:0.3827491331808638
+Cost after epoch 4050:0.38321367201238565
+Cost after epoch 4100:0.3838783859616458
+Cost after epoch 4150:0.3827747186221696
+Cost after epoch 4200:0.38270848694414183
+Cost after epoch 4250:0.38647168697697115
+Cost after epoch 4300:0.37992781105608053
+Cost after epoch 4350:0.3834785462015926
+Cost after epoch 4400:0.3806133467962246
+Cost after epoch 4450:0.38277064101530783
+Cost after epoch 4500:0.38283245427773754
+Cost after epoch 4550:0.38125467270907787
+Cost after epoch 4600:0.3803724637716124
+Cost after epoch 4650:0.3832058201331902
+Cost after epoch 4700:0.3793182488125149
+Cost after epoch 4750:0.3797380605546555
+Cost after epoch 4800:0.38156418487577143
+Cost after epoch 4850:0.3811866759073617
+Cost after epoch 4900:0.38213621773342105
+Cost after epoch 4950:0.379616400983074
+Cost after epoch 5000:0.3792975783938228
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.719849
+Test Accuracy: 0.868531
+Saved Model at : VAT elu activations lr 0.001 mbs 1024 e 5000.ckpt
+
+
+
+vat large files
+
+
+Creating Classes, reading images and breaking things {\ldots}
+
+[ ================================================== ] 100.00\%
+Done!
+
+Done!
+
+ images shape: (64727, 28, 28, 3), labels shape: (64727, 12)
+(51781, 28, 28, 3) (12946, 28, 28, 3) (51781, 12) (12946, 12)
+train\_x3: (103562, 28, 28, 3)
+train\_y3: (103562, 12)
+test\_x.shape: (12946, 28, 28, 3)
+test\_y.shape: (12946, 12)
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001
+VAT: True
+Large\_Files: True 
+Cost after epoch 0:1.9863693206617148
+Cost after epoch 50:0.7765667898820179
+Cost after epoch 100:0.6037771389035895
+Cost after epoch 150:0.5351402488085304
+Cost after epoch 200:0.5015666918589338
+Cost after epoch 250:0.48211624244652174
+Cost after epoch 300:0.4698003725250169
+Cost after epoch 350:0.46040383630459836
+Cost after epoch 400:0.457314912635501
+Cost after epoch 450:0.4494707610937629
+Cost after epoch 500:0.4443871856916069
+Cost after epoch 550:0.43970484308677144
+Cost after epoch 600:0.43629541196445437
+Cost after epoch 650:0.43370962467524066
+Cost after epoch 700:0.4304021561499869
+Cost after epoch 750:0.43210078525071094
+Cost after epoch 800:0.4254985457599755
+Cost after epoch 850:0.4245117743416588
+Cost after epoch 900:0.4295350761696842
+Cost after epoch 950:0.42671093020108664
+Cost after epoch 1000:0.4200822371657532
+Cost after epoch 1050:0.4188962732211198
+Cost after epoch 1100:0.4181658047260624
+Cost after epoch 1150:0.41360367996857883
+Cost after epoch 1200:0.41812360847350405
+Cost after epoch 1250:0.41477626090002534
+Cost after epoch 1300:0.41029844130619936
+Cost after epoch 1350:0.41125324516013123
+Cost after epoch 1400:0.4081160948418153
+Cost after epoch 1450:0.408755215382812
+Cost after epoch 1500:0.40883886961653687
+Cost after epoch 1550:0.4083147482706769
+Cost after epoch 1600:0.410468066092765
+Cost after epoch 1650:0.4059127669523257
+Cost after epoch 1700:0.4057758128879094
+Cost after epoch 1750:0.4068763825562922
+Cost after epoch 1800:0.4028468323816168
+Cost after epoch 1850:0.4008080484253347
+Cost after epoch 1900:0.4029679903299502
+Cost after epoch 1950:0.40269087859899694
+Cost after epoch 2000:0.4017876129929382
+Cost after epoch 2050:0.40028768718832797
+Cost after epoch 2100:0.40164531605078446
+Cost after epoch 2150:0.4027747638744883
+Cost after epoch 2200:0.39923383369304166
+Cost after epoch 2250:0.4000772644977759
+Cost after epoch 2300:0.3975681202246411
+Cost after epoch 2350:0.3946927838986463
+Cost after epoch 2400:0.3947729019835443
+Cost after epoch 2450:0.3947361746046803
+Cost after epoch 2500:0.39445319417679653
+Cost after epoch 2550:0.39423686679046926
+Cost after epoch 2600:0.39481173145889026
+Cost after epoch 2650:0.3946753359667144
+Cost after epoch 2700:0.39335928075384363
+Cost after epoch 2750:0.3921214477850658
+Cost after epoch 2800:0.39330841586141313
+Cost after epoch 2850:0.39487263796353095
+Cost after epoch 2900:0.39085276174073164
+Cost after epoch 2950:0.39321837950460986
+Cost after epoch 3000:0.39040087886375974
+Cost after epoch 3050:0.39147976867043144
+Cost after epoch 3100:0.39224859688541674
+Cost after epoch 3150:0.39238088437826324
+Cost after epoch 3200:0.3905710678289431
+Cost after epoch 3250:0.39250661860598207
+Cost after epoch 3300:0.38875565611489926
+Cost after epoch 3350:0.39003655520996244
+Cost after epoch 3400:0.3891464412802517
+Cost after epoch 3450:0.3868038117295445
+Cost after epoch 3500:0.3908874867576183
+Cost after epoch 3550:0.38874410461671294
+Cost after epoch 3600:0.3916505023394482
+Cost after epoch 3650:0.3880536491327945
+Cost after epoch 3700:0.38661180716930066
+Cost after epoch 3750:0.3867147756685125
+Cost after epoch 3800:0.38699759174101434
+Cost after epoch 3850:0.3890657719999259
+Cost after epoch 3900:0.3877145382437376
+Cost after epoch 3950:0.38684156743606724
+Cost after epoch 4000:0.38584359890163533
+Cost after epoch 4050:0.38515158838564806
+Cost after epoch 4100:0.3865396244691151
+Cost after epoch 4150:0.38459367710765036
+Cost after epoch 4200:0.3838984715466452
+Cost after epoch 4250:0.38796773287329356
+Cost after epoch 4300:0.38378829678686527
+Cost after epoch 4350:0.3853187944629405
+Cost after epoch 4400:0.3832855386899249
+Cost after epoch 4450:0.3840649667942878
+Cost after epoch 4500:0.3837632649015671
+Cost after epoch 4550:0.38341210089107547
+Cost after epoch 4600:0.3828048818182238
+Cost after epoch 4650:0.3839366577639437
+Cost after epoch 4700:0.3815025297722013
+Cost after epoch 4750:0.3824590111132895
+Cost after epoch 4800:0.382109266106445
+Cost after epoch 4850:0.3823409042145947
+Cost after epoch 4900:0.383098686980729
+Cost after epoch 4950:0.3812364953579289
+Cost after epoch 5000:0.3803171024169072
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.718285
+Test Accuracy: 0.860188
+Saved Model at : VAT large imageselu activations lr 0.001 mbs 1024 e 5000.ckpt
+Total time taken = 2 hours, 29 minutes and 55.3722 seconds
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.image.AxesImage at 0x7f0996d55d68>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{train\PYZus{}x2}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.image.AxesImage at 0x7f098c0af358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}y2}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0.  1.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.] [ 0.  1.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <matplotlib.image.AxesImage at 0x7f0996ee9a90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.0001}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.image.AxesImage at 0x7f0984e43978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{train\PYZus{}x}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]} \PY{o}{==} \PY{n}{train\PYZus{}x2}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([[[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]],
+        
+               [[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]],
+        
+               [[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]],
+        
+               {\ldots}, 
+               [[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]],
+        
+               [[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]],
+        
+               [[False, False, False],
+                [False, False, False],
+                [False, False, False],
+                {\ldots}, 
+                [False, False, False],
+                [False, False, False],
+                [False, False, False]]], dtype=bool)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{train\PYZus{}x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{p}{)}
+         \PY{n}{train\PYZus{}y2} \PY{o}{=} \PY{n}{train\PYZus{}y}
+         \PY{n}{train\PYZus{}y3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{train\PYZus{}y2}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{train\PYZus{}x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}x2}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}testing on non VAT:\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}temp\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{train\PYZus{}y3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}x.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}y.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{15} \PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64} \PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr009  batch\PYZus{}size 32 100 epochs\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0009 e 100 mbs 2048\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}\PYZus{},\PYZus{},\PYZus{} = model(train\PYZus{}x3,train\PYZus{}y3,test\PYZus{}x,test\PYZus{}y, learning\PYZus{}rate = 0.009,num\PYZus{}epochs = 100,minibatch\PYZus{}size = 64, print\PYZus{}cost = True)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr 0009 mbs e 1000 2048\PYZdq{})}
+         
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZus{}, \PYZus{}, parameters = model(train\PYZus{}x3, train\PYZus{}y3, test\PYZus{}x, test\PYZus{}y,learning\PYZus{}rate=0.009,}
+         \PY{c+c1}{\PYZsh{}		  num\PYZus{}epochs = 1000, minibatch\PYZus{}size = 64, print\PYZus{}cost=True)}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+         \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+         	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+         	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+         \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total time taken = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ hours, }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ minutes and }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{ seconds}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{hrs}\PY{p}{,}\PY{n}{mins}\PY{p}{,} \PY{n}{secs}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0001 mb 2048 ep 5000 adv training\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}print(title)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train\_x3: (103562, 28, 28, 3)
+train\_y3: (103562, 12)
+test\_x.shape: (12946, 28, 28, 3)
+test\_y.shape: (12946, 12)
+Batch Size : 64
+Epochs: 15
+Learning Rate: 0.001  
+Cost after epoch 0: 1.538704605568178
+Cost after epoch 2: 1.311808852389067
+Cost after epoch 4: 1.0748123913377101
+Cost after epoch 6: 0.9487186893544479
+Cost after epoch 8: 0.8535776111045199
+Cost after epoch 10: 0.7927363488284415
+Cost after epoch 12: 0.760252226857821
+Cost after epoch 14: 0.7288185738957266
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.774454
+Test Accuracy: 0.77437
+Saved Model at : elu activations lr 0.001 mbs 64 e 15.ckpt
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001  
+Cost after epoch 0:1.852538996403759
+Cost after epoch 50:0.8171113806195778
+Cost after epoch 100:0.7109046602013087
+Cost after epoch 150:0.6256159585301239
+Cost after epoch 200:0.5588534739938114
+Cost after epoch 250:0.5184028184059825
+Cost after epoch 300:0.4972533554133801
+Cost after epoch 350:0.4783316788697006
+Cost after epoch 400:0.46687586708824247
+Cost after epoch 450:0.45240929073626457
+Cost after epoch 500:0.4459702407959665
+Cost after epoch 550:0.4370191713961044
+Cost after epoch 600:0.43171793222427357
+Cost after epoch 650:0.424940568385738
+Cost after epoch 700:0.41976610327711206
+Cost after epoch 750:0.41764235762086244
+Cost after epoch 800:0.41072174139542156
+Cost after epoch 850:0.41026092637883566
+Cost after epoch 900:0.4035561102451664
+Cost after epoch 950:0.40233579838630007
+Cost after epoch 1000:0.4008838575665314
+Cost after epoch 1050:0.3956746765882662
+Cost after epoch 1100:0.39469571780450263
+Cost after epoch 1150:0.3917356490498722
+Cost after epoch 1200:0.39248652948011276
+Cost after epoch 1250:0.38820678703855765
+Cost after epoch 1300:0.384325102414235
+Cost after epoch 1350:0.38503783764225424
+Cost after epoch 1400:0.38150061607950975
+Cost after epoch 1450:0.38100560319305643
+Cost after epoch 1500:0.3817292605296219
+Cost after epoch 1550:0.37757619920343466
+Cost after epoch 1600:0.37868174408922106
+Cost after epoch 1650:0.3757638503419291
+Cost after epoch 1700:0.3757999200041932
+Cost after epoch 1750:0.3761566133782415
+Cost after epoch 1800:0.37555704966630077
+Cost after epoch 1850:0.3734572122592738
+Cost after epoch 1900:0.37479666554101626
+Cost after epoch 1950:0.3739710813111598
+Cost after epoch 2000:0.37201848095006274
+Cost after epoch 2050:0.37151697897675023
+Cost after epoch 2100:0.37148424864995605
+Cost after epoch 2150:0.37145793260914267
+Cost after epoch 2200:0.37041821957814813
+Cost after epoch 2250:0.3677970185728359
+Cost after epoch 2300:0.36807870835360906
+Cost after epoch 2350:0.3673294759032751
+Cost after epoch 2400:0.37016192698242617
+Cost after epoch 2450:0.36923992958399343
+Cost after epoch 2500:0.36606476478057337
+Cost after epoch 2550:0.3688579877414325
+Cost after epoch 2600:0.36671733944722923
+Cost after epoch 2650:0.3671819272607862
+Cost after epoch 2700:0.36778712567716537
+Cost after epoch 2750:0.3641606221104613
+Cost after epoch 2800:0.3667718983522735
+Cost after epoch 2850:0.3646351630144782
+Cost after epoch 2900:0.36538877611113074
+Cost after epoch 2950:0.3638234082424994
+Cost after epoch 3000:0.3634927379022731
+Cost after epoch 3050:0.3642942138237528
+Cost after epoch 3100:0.3655817263787335
+Cost after epoch 3150:0.36339630643920146
+Cost after epoch 3200:0.3622718742578335
+Cost after epoch 3250:0.3619627040801663
+Cost after epoch 3300:0.36469899575308995
+Cost after epoch 3350:0.3630156953736105
+Cost after epoch 3400:0.3611861027703427
+Cost after epoch 3450:0.36110316054655767
+Cost after epoch 3500:0.3655420698151731
+Cost after epoch 3550:0.36290450969544974
+Cost after epoch 3600:0.36264306926491247
+Cost after epoch 3650:0.35925496568774234
+Cost after epoch 3700:0.36193604546018165
+Cost after epoch 3750:0.36161817772553695
+Cost after epoch 3800:0.3589693915725934
+Cost after epoch 3850:0.3611481794626406
+Cost after epoch 3900:0.3593521283404661
+Cost after epoch 3950:0.3586442535466488
+Cost after epoch 4000:0.358838812254443
+Cost after epoch 4050:0.3588472563441439
+Cost after epoch 4100:0.3582562937004732
+Cost after epoch 4150:0.3610579445220457
+Cost after epoch 4200:0.3587377342847315
+Cost after epoch 4250:0.35907701661091046
+Cost after epoch 4300:0.3568122761674447
+Cost after epoch 4350:0.3601248541680893
+Cost after epoch 4400:0.3591436658165243
+Cost after epoch 4450:0.3586022207642547
+Cost after epoch 4500:0.3590317011469662
+Cost after epoch 4550:0.35994430874833966
+Cost after epoch 4600:0.3594999215980567
+Cost after epoch 4650:0.3590289342521441
+Cost after epoch 4700:0.355705211658289
+Cost after epoch 4750:0.3586919558520362
+Cost after epoch 4800:0.35801170308991237
+Cost after epoch 4850:0.3555350879041274
+Cost after epoch 4900:0.35802766798746444
+Cost after epoch 4950:0.3579436449131163
+Cost after epoch 5000:0.3585314610511951
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.716933
+Test Accuracy: 0.868376
+Saved Model at : elu activations lr 0.001 mbs 1024 e 5000.ckpt
+Total time taken = 2 hours, 30 minutes and 5.4029 seconds
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{images}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{load\PYZus{}train}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{im\PYZus{}train\PYZus{}large}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{split\PYZus{}data}\PY{p}{(}\PY{n}{images}\PY{p}{,}\PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{train\PYZus{}x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{train\PYZus{}x}\PY{p}{)}
+         \PY{n}{train\PYZus{}y2} \PY{o}{=} \PY{n}{train\PYZus{}y}
+         \PY{n}{train\PYZus{}y3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{train\PYZus{}y2}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{train\PYZus{}x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}x2}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}testing on non VAT:\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}temp\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{train\PYZus{}y3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}x.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}y.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.006}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{20} \PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64} \PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr009  batch\PYZus{}size 32 100 epochs\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0009 e 100 mbs 2048\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}\PYZus{},\PYZus{},\PYZus{} = model(train\PYZus{}x3,train\PYZus{}y3,test\PYZus{}x,test\PYZus{}y, learning\PYZus{}rate = 0.009,num\PYZus{}epochs = 100,minibatch\PYZus{}size = 64, print\PYZus{}cost = True)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr 0009 mbs e 1000 2048\PYZdq{})}
+         
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZus{}, \PYZus{}, parameters = model(train\PYZus{}x3, train\PYZus{}y3, test\PYZus{}x, test\PYZus{}y,learning\PYZus{}rate=0.009,}
+         \PY{c+c1}{\PYZsh{}		  num\PYZus{}epochs = 1000, minibatch\PYZus{}size = 64, print\PYZus{}cost=True)}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.009}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+         \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+         	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+         	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+         \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total time taken = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ hours, }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ minutes and }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{ seconds}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{hrs}\PY{p}{,}\PY{n}{mins}\PY{p}{,} \PY{n}{secs}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0001 mb 2048 ep 5000 adv training\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}print(title)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Creating Classes, reading images and breaking things {\ldots}
+
+[ ================================================== ] 100.00\%
+Done!
+
+Done!
+
+ images shape: (64727, 28, 28, 3), labels shape: (64727, 12)
+(51781, 28, 28, 3) (12946, 28, 28, 3) (51781, 12) (12946, 12)
+train\_x3: (103562, 28, 28, 3)
+train\_y3: (103562, 12)
+test\_x.shape: (12946, 28, 28, 3)
+test\_y.shape: (12946, 12)
+Batch Size : 64
+Epochs: 20
+Learning Rate: 0.006  
+Cost after epoch 0: 1.4328361282537248
+Cost after epoch 2: 0.8969597349723871
+Cost after epoch 4: 0.7359997292678933
+Cost after epoch 6: 0.6447841265366603
+Cost after epoch 8: 0.6057856586313954
+Cost after epoch 10: 0.5750817176880146
+Cost after epoch 12: 0.5619035937324888
+Cost after epoch 14: 0.5466762499697272
+Cost after epoch 16: 0.5410817606450598
+Cost after epoch 18: 0.5342100216778004
+Cost after epoch 20: 0.5348337709314309
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.817423
+Test Accuracy: 0.810907
+Saved Model at : elu activations lr 0.006 mbs 64 e 20.ckpt
+Batch Size : 64
+Epochs: 3000
+Learning Rate: 0.009  
+Cost after epoch 0:1.214076730041628
+Cost after epoch 50:0.517672833621649
+Cost after epoch 100:0.5029443152644872
+Cost after epoch 150:0.5031872202166822
+Cost after epoch 200:0.49492061271692434
+Cost after epoch 250:0.49681881143814016
+Cost after epoch 300:0.49337301409730866
+Cost after epoch 350:0.48941559618976727
+Cost after epoch 400:0.4887893892944372
+Cost after epoch 450:0.4881149947422251
+Cost after epoch 500:0.48052217350865206
+Cost after epoch 550:0.4791546670538096
+Cost after epoch 600:0.47008518371800095
+Cost after epoch 650:0.4723912452235915
+Cost after epoch 700:0.47222931690431214
+Cost after epoch 750:0.4706222924814822
+Cost after epoch 800:0.47282864932518825
+Cost after epoch 850:0.46304886661958045
+Cost after epoch 900:0.4692803486923802
+Cost after epoch 950:0.47443790671188857
+Cost after epoch 1000:0.47029543910244576
+Cost after epoch 1050:0.46352765891512177
+Cost after epoch 1100:0.46789794049153305
+Cost after epoch 1150:0.4730815866545348
+Cost after epoch 1200:0.4638320696073935
+Cost after epoch 1250:0.4625136609959359
+Cost after epoch 1300:0.46606162065646933
+Cost after epoch 1350:0.470956989166837
+Cost after epoch 1400:0.46061257179941534
+Cost after epoch 1450:0.46529506283210065
+Cost after epoch 1500:0.4683816977517564
+Cost after epoch 1550:0.4737128700292009
+Cost after epoch 1600:0.4575453709410349
+Cost after epoch 1650:0.46080240657914645
+Cost after epoch 1700:0.46472604747295226
+Cost after epoch 1750:0.4650317060269592
+Cost after epoch 1800:0.4623086530857974
+Cost after epoch 1850:0.4601124949541466
+Cost after epoch 1900:0.4702517513475833
+Cost after epoch 1950:0.4577486021501773
+Cost after epoch 2000:0.460986780774018
+Cost after epoch 2050:0.46102845158579914
+Cost after epoch 2100:0.46167843579803897
+Cost after epoch 2150:0.4594907573849064
+Cost after epoch 2200:0.46005478545526124
+Cost after epoch 2250:0.45595501197504296
+Cost after epoch 2300:0.46222647383569565
+Cost after epoch 2350:0.4597605670191008
+Cost after epoch 2400:0.458645565584947
+Cost after epoch 2450:0.4605493208368126
+Cost after epoch 2500:0.4596046902727429
+Cost after epoch 2550:0.458687186452971
+Cost after epoch 2600:0.4642547749452584
+Cost after epoch 2650:0.4587041393696008
+Cost after epoch 2700:0.4574554533650463
+Cost after epoch 2750:0.45807699313932987
+Cost after epoch 2800:0.46820428080589677
+Cost after epoch 2850:0.4555797420156611
+Cost after epoch 2900:0.45437858263848036
+Cost after epoch 2950:0.4630639507850846
+Cost after epoch 3000:0.46820527239620885
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.703868
+Test Accuracy: 0.845126
+Saved Model at : elu activations lr 0.009 mbs 64 e 3000.ckpt
+Total time taken = 5 hours, 12 minutes and 3.5579 seconds
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}print(\PYZdq{}testing on non VAT:\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}temp\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{train\PYZus{}y3: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}x.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{test\PYZus{}y.shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{train\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{15} \PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64} \PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr009  batch\PYZus{}size 32 100 epochs\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0009 e 100 mbs 2048\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}\PYZus{},\PYZus{},\PYZus{} = model(train\PYZus{}x3,train\PYZus{}y3,test\PYZus{}x,test\PYZus{}y, learning\PYZus{}rate = 0.009,num\PYZus{}epochs = 100,minibatch\PYZus{}size = 64, print\PYZus{}cost = True)}
+         
+         \PY{c+c1}{\PYZsh{}print(\PYZdq{}lr 0009 mbs e 1000 2048\PYZdq{})}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZus{}, \PYZus{}, parameters = model(train\PYZus{}x3, train\PYZus{}y3, test\PYZus{}x, test\PYZus{}y,learning\PYZus{}rate=0.009,}
+         \PY{c+c1}{\PYZsh{}		  num\PYZus{}epochs = 1000, minibatch\PYZus{}size = 64, print\PYZus{}cost=True)}
+         \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{params} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{train\PYZus{}x3}\PY{p}{,}\PY{n}{train\PYZus{}y3}\PY{p}{,}\PY{n}{test\PYZus{}x}\PY{p}{,}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{num\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{1024}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{total\PYZus{}end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{hrs} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{mins} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{60}
+         \PY{k}{if} \PY{n}{mins} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{:}
+         	\PY{n}{hrs} \PY{o}{=} \PY{n}{mins}\PY{o}{/}\PY{l+m+mi}{60}
+         	\PY{n}{mins} \PY{o}{\PYZpc{}}\PY{o}{=} \PY{l+m+mi}{60}
+         \PY{n}{secs} \PY{o}{=} \PY{p}{(}\PY{n}{total\PYZus{}end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{60}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total time taken = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ hours, }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{ minutes and }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s2}{ seconds}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{hrs}\PY{p}{,}\PY{n}{mins}\PY{p}{,} \PY{n}{secs}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}title = \PYZdq{}lr 0001 mb 2048 ep 5000 adv training\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}print(title)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train\_x3: (103562, 28, 28, 3)
+train\_y3: (103562, 12)
+test\_x.shape: (12946, 28, 28, 3)
+test\_y.shape: (12946, 12)
+
+
+
+Batch Size : 64
+Epochs: 15
+Learning Rate: 0.001  
+Cost after epoch 0: 1.5387043952941868
+Cost after epoch 2: 1.3108156644664388
+Cost after epoch 4: 1.0675960644361273
+Cost after epoch 6: 0.9431184435951702
+Cost after epoch 8: 0.8503288585780143
+Cost after epoch 10: 0.7920647936289477
+Cost after epoch 12: 0.7582914373193892
+Cost after epoch 14: 0.7265116017224321
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.774493
+Test Accuracy: 0.771821
+Saved Model at : elu activations lr 0.001 mbs 64 e 15.ckpt
+
+
+
+
+
+
+Batch Size : 1024
+Epochs: 5000
+Learning Rate: 0.001  
+Cost after epoch 0:1.8525937866456443
+Cost after epoch 50:0.7944315276523625
+Cost after epoch 100:0.6641651663449732
+Cost after epoch 150:0.6009879041426256
+Cost after epoch 200:0.5680660623134953
+Cost after epoch 250:0.5452337896469795
+Cost after epoch 300:0.526236864009706
+Cost after epoch 350:0.5009702582760612
+Cost after epoch 400:0.48959486791403
+Cost after epoch 450:0.47548144023017114
+Cost after epoch 500:0.465557597061195
+Cost after epoch 550:0.4590094328516781
+Cost after epoch 600:0.45751005322626326
+Cost after epoch 650:0.45044090193096964
+Cost after epoch 700:0.44672269632320594
+Cost after epoch 750:0.45120323441996435
+Cost after epoch 800:0.44180875426471844
+Cost after epoch 850:0.43966622370304437
+Cost after epoch 900:0.43756849665452946
+Cost after epoch 950:0.43890497294983066
+Cost after epoch 1000:0.43481361482403064
+Cost after epoch 1050:0.43244724019919273
+Cost after epoch 1100:0.4296095403704313
+Cost after epoch 1150:0.4292889972134392
+Cost after epoch 1200:0.4276911878939902
+Cost after epoch 1250:0.42785356451969325
+Cost after epoch 1300:0.42312396192314583
+Cost after epoch 1350:0.4203681405818109
+Cost after epoch 1400:0.4177578888317144
+Cost after epoch 1450:0.41753505244113426
+Cost after epoch 1500:0.41898734144645167
+Cost after epoch 1550:0.4173866725794158
+Cost after epoch 1600:0.4155958769935193
+Cost after epoch 1650:0.412009844685545
+Cost after epoch 1700:0.41263313724262884
+Cost after epoch 1750:0.4103222394933796
+Cost after epoch 1800:0.41275876671961037
+Cost after epoch 1850:0.4085706758617172
+Cost after epoch 1900:0.4106858455308592
+Cost after epoch 1950:0.40949143956203266
+Cost after epoch 2000:0.4079982912776493
+Cost after epoch 2050:0.40718402514363267
+Cost after epoch 2100:0.40739107309001515
+Cost after epoch 2150:0.4071366249924839
+Cost after epoch 2200:0.40736196536828956
+Cost after epoch 2250:0.4015504207351421
+Cost after epoch 2300:0.4032210563078966
+Cost after epoch 2350:0.40193838854827507
+Cost after epoch 2400:0.4022044675184949
+Cost after epoch 2450:0.4000071635340699
+Cost after epoch 2500:0.39780283387344645
+Cost after epoch 2550:0.39969331763758525
+Cost after epoch 2600:0.3975473376783996
+Cost after epoch 2650:0.3959874454701301
+Cost after epoch 2700:0.3954371290631814
+Cost after epoch 2750:0.3918093041618272
+Cost after epoch 2800:0.39400946385789604
+Cost after epoch 2850:0.3924647838172345
+Cost after epoch 2900:0.3922883614455119
+Cost after epoch 2950:0.38909446278421
+Cost after epoch 3000:0.3921494401327452
+Cost after epoch 3050:0.38793401877478817
+Cost after epoch 3100:0.3889636668828455
+Cost after epoch 3150:0.3875336027381444
+Cost after epoch 3200:0.3868750501977336
+Cost after epoch 3250:0.38579984850222526
+Cost after epoch 3300:0.38377507783398773
+Cost after epoch 3350:0.3842131524983018
+Cost after epoch 3400:0.38436458695052883
+Cost after epoch 3450:0.3827552819015956
+Cost after epoch 3500:0.38328423742020473
+Cost after epoch 3550:0.38191566608919947
+Cost after epoch 3600:0.38299691824629756
+Cost after epoch 3650:0.3803006062413207
+Cost after epoch 3700:0.38209043339927595
+Cost after epoch 3750:0.37918011268766794
+Cost after epoch 3800:0.37865967827268154
+Cost after epoch 3850:0.3808071569050891
+Cost after epoch 3900:0.3792786167399718
+Cost after epoch 3950:0.3786873543026423
+Cost after epoch 4000:0.3751646817320645
+Cost after epoch 4050:0.3764845457407508
+Cost after epoch 4100:0.37672676514871056
+Cost after epoch 4150:0.37583859250097007
+Cost after epoch 4200:0.3748282807888372
+Cost after epoch 4250:0.3767845863753025
+Cost after epoch 4300:0.3741174614665532
+Cost after epoch 4350:0.3749482041538352
+Cost after epoch 4400:0.3728360229789619
+Cost after epoch 4450:0.37456899704319424
+Cost after epoch 4500:0.37209699531592955
+Cost after epoch 4550:0.3750002354678541
+Cost after epoch 4600:0.37200161814689625
+Cost after epoch 4650:0.37348023293041954
+Cost after epoch 4700:0.3707474927500922
+Cost after epoch 4750:0.37191988365484935
+Cost after epoch 4800:0.37074655294418335
+Cost after epoch 4850:0.370646751458102
+Cost after epoch 4900:0.37248979700673934
+Cost after epoch 4950:0.36950153407484015
+Cost after epoch 5000:0.3687083098557915
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("Mean\_1:0", shape=(), dtype=float32, device=/device:GPU:0)
+Train Accuracy: 0.718304
+Test Accuracy: 0.869458
+Saved Model at : elu activations lr 0.001 mbs 1024 e 5000.ckpt
+Total time taken = 2 hours, 30 minutes and 4.7961 seconds
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

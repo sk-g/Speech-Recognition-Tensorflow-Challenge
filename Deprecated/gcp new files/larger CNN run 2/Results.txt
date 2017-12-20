@@ -1,0 +1,107 @@
+Author: Sanjay Krishna Gouda
+Email:  sgouda@ucsc.edu
+
+Results: 
+
+Constant Architecutre.
+
+Architecture:
+	7 layers
+	input -> (conv_2d -> elu -> max_pool ->) x 5 --> flatten --> fully connected --> fully connected
+
+Details:
+
+Conv1 : 7x7 filters x8  (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 8, strides: 8,8
+Conv2 : 5x5 filetrs x16 (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 4, strides: 2,2
+Conv3 : 3x3 filters x8  (1,1) strides followed by elu transformation and max pooling with n_h = n_w = 2, strides: 2,2
+Conv3 : 2x2 filters x4  (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 4, strides: 2,2
+Conv3 : 2x2 filters x4  (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 2, strides: 2,2
+
+Note: For this setting, added dropout regularization at all the elu transformation layers and at the fully connected layers but 
+		it seeemed like the models were underfitting (over regularization) so not including those results.
+
+Training:
+Normal training: 
+5 fold cv. Random splits. 4 parts for training and 5th for validation. Random sampling without replacement so repetition not required.
+
+Adversarial training:
+same 5 fold cv with random splits, 4 parts for training and 5th for validation.
+adversarial inputs: training part of the data appended with noisy images. So number of training examples = 2 * # examples in training part.
+
+img res 		batch_size	n_epochs	l_rate	tr_acc		te_acc		activation	loss	
+___________________________________________________________________________________________
+
+28_28			1024		5000		0.001	0.877098	0.86575		elu		0.38977
+288_288			1024		5000		0.001	0.878353	0.867295	elu		0.39376
+28_28 + VAT		1024		5000		0.001	0.719849	0.868531	elu		0.37929
+288_288 + VAT	1024		5000		0.001	0.718285	0.860188	elu		0.38031
+
+
+Less overfitting. VAT worked as a regularizer (low training accuracy but almost equal test/validation accuracy)
+
+
+Results: 
+
+Larger Architecutre.
+
+Architecture:
+	7 layers
+	input -> (conv_2d -> elu -> max_pool ->) x 5 --> flatten --> fully connected --> fully connected
+
+Details:
+
+Conv1 : 7x7 filters x64 (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 8, strides: 8,8
+Conv2 : 5x5 filetrs x32 (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 4, strides: 2,2
+Conv3 : 3x3 filters x16 (1,1) strides followed by elu transformation and max pooling with n_h = n_w = 2, strides: 2,2
+Conv3 : 2x2 filters x8  (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 4, strides: 2,2
+Conv3 : 2x2 filters x4  (2,2) strides followed by elu transformation and max pooling with n_h = n_w = 2, strides: 2,2
+
+Note: For this setting, added dropout regularization at all the elu transformation layers and at the fully connected layers but 
+		it seeemed like the models were underfitting (over regularization) so not including those results.
+
+Training:
+Normal training: 
+5 fold cv. Random splits. 4 parts for training and 5th for validation. Random sampling without replacement so repetition not required.
+
+Adversarial training:
+same 5 fold cv with random splits, 4 parts for training and 5th for validation.
+adversarial inputs: training part of the data appended with noisy images. So number of training examples = 2 * # examples in training part.
+
+Run 1 thres <= 0.1
+img res 		batch_size	n_epochs	l_rate	tr_acc		te_acc		activation	loss
+___________________________________________________________________________________________
+
+28_28			1024		168(e) 		0.009	0.973021	0.926078	elu		0.0906
+288_288			1024		171(e) 		0.009	0.965238	0.918894	elu		0.0942
+28_28 + VAT		1024		105(e)		0.009	0.969892	0.921984	elu		0.0954
+288_288 + VAT	1024		97 (e)		0.009	0.960991	0.915109	elu		0.0978
+
+Run 2 thres <= 0.05
+
+img res 		batch_size	n_epochs	l_rate	tr_acc		te_acc		activation	loss
+___________________________________________________________________________________________
+
+28_28			1024		411(e) 		0.009	0.986115	0.921675	elu		0.0539
+288_288			1024		440(e) 		0.009	0.983778	0.922756	elu		0.0535
+28_28 + VAT		1024		243(e)		0.009	0.981424	0.918198	elu		0.0549
+288_288 + VAT	1024		236(e)		0.009	0.977743	0.915572	elu		0.0551
+
+
+
+Ignore below this line
+_________________________________________________________________________________________
+
+{
+	'go' : 2,
+	'down': 11,
+	'on': 1,
+	'silence':6
+	'right': 5,
+	'up': 3,
+	'yes': 9,
+	'left': 4,
+	'stop': 0,
+	'no': 8,
+	'unkown': 10,
+	'off': 7
+}

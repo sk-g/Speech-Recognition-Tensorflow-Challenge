@@ -6,18 +6,11 @@ Folders :
 	results: results in graphs
 	papers: some useful papers
 	test_pics : ignore (spectrograms of test audio clips)
+	Deprecated : old GCP files. Ignore
 Files :
 	complete.py -> code with two CNN models and adversarial training
 	ReadMe -> this
 
-Models:
-Shallow CNN: CNN similar to AlexNet. Two fc layers at the end, dropout enabled/disabled.
-
-Deeper CNN:
-	wide  : added more layers to the CNN, removed dropout
-	wider : increased number of filters
-
-Files:
 	Some files were used for preprocessing on older data
 	but maybe useful for other projects
 	ignore these:
@@ -27,7 +20,18 @@ Files:
 		ds.py <- tried an iterator
 		pp.py <- audio to image conversion. recursively converts all audio clips in a folder to 
 				 corresponding spectrograms
-	complete.py <- main code (USE this)
+		speech_recog.py <- ignore
+		GCP-SR.py <-- for local usage in google cloud platform
+		
+
+Models:
+Shallow CNN: CNN similar to AlexNet. Two fc layers at the end, dropout enabled/disabled.
+
+Deeper CNN:
+	wide  : added more layers to the CNN, removed dropout
+	wider : increased number of filters
+
+
 For Results and Talks:
 	ML_final.pdf
 	ML_talk.pdf
